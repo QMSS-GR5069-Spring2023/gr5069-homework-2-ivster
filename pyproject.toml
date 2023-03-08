@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "seatgeekpkg"
+version = "0.1.2"
+description = " A package that wraps around the SeatGeek API and returns recommendations of artists, popular events of a city, and cheapest tickets for an artist's concert."
+authors = ["Ivy Xin Yi Wong"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = 'seatgeekpkg', from = 'src'}, {include = 'src'}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.5.2"
+requests = "^2.28.1"
+pytest = "^7.2.0"
+python-dotenv = "^0.21.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+myst-nb = "^0.17.1"
+sphinx-autoapi = "^2.0.0"
+sphinx-rtd-theme = "^1.1.1"
+pytest = "^7.2.0"
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version" # version location
+branch = "main"                             # branch to make releases of
+changelog_file = "CHANGELOG.md"             # changelog file
+build_command = "poetry build"              # build dists
+dist_path = "dist/"                         # where to put dists
+upload_to_release = true                    # auto-create GitHub release
+upload_to_pypi = false                      # don't auto-upload to PyPI
+remove_dist = false                         # don't remove dists
+patch_without_tag = true                    # patch release by default
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
