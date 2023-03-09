@@ -1,0 +1,150 @@
+:py:mod:`seatgeekpkg.seatgeekpkg`
+=================================
+
+.. py:module:: seatgeekpkg.seatgeekpkg
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   seatgeekpkg.seatgeekpkg.popular_events
+   seatgeekpkg.seatgeekpkg.cheap_tix
+   seatgeekpkg.seatgeekpkg.recommend_me
+   seatgeekpkg.seatgeekpkg.performer_id
+   seatgeekpkg.seatgeekpkg.city_status
+
+
+
+.. py:function:: popular_events(client_key, city)
+
+   "
+
+   A function that returns upcoming concerts in a given city, ranked by popularity.
+
+   :param client_key:
+   :type client_key: the API key needed to authenticate the user and gain access to SeatGeek's API
+   :param city:
+   :type city: any city the user is interested in searching
+
+   Output
+   ----------
+   >>> popular_events(client_id, 'Los Angeles')
+
+
+       Artists   | Scores
+   0  Lizzo      | 0.47
+   1  Al Franken | 0.32
+
+
+
+
+.. py:function:: cheap_tix(client_key, price, artist)
+
+   This function returns a dataframe of the cheapest tickets of an upcoming event of a specific artist.
+
+   :param client_key:
+   :type client_key: client_id authentication
+   :param price:
+   :type price: the highest price a user is willing to pay for the event
+   :param artist: if the artist's name has more than one word, separate each word with a dash
+   :type artist: any artist that has concerts listed on SeatGeek already. should be written out in lower case, and
+
+   Output
+   ----------
+   The function will output a dataframe of the artist's lowest priced ticket, the location of the event,
+   the title of the event, and a link to the event.
+
+
+   .. rubric:: Example
+
+   >>> cheap_tix(client_id, 500, 'sabrina-carpenter')
+
+       Artist           | Lowest Price | Location         | Title             | Link
+   0  Sabrina Carpenter | 90           | Tulsa Theater    | Sabrina Carpenter | https://seatgeek.com/sabrina-carpenter-tickets...
+   1  Sabrina Carpenter | 475          | Ryman Auditorium | Sabrina Carpenter | https://seatgeek.com/sabrina-carpenter-tickets...
+
+
+.. py:function:: recommend_me(client_key, artist, postal)
+
+   "
+   This function uses the events endpoint and recommendations endpoint to recommend the user upcoming events
+   related to a performer and location of their choosing.
+
+   This function will have two GET requests: the first is to retrieve the performer id of the artist of the
+   user's choosing, and the second will generate a recommendations dataframe related to that artist.
+
+
+   :param client_key:
+   :type client_key: client_id authentication key
+   :param artist:
+   :type artist: an artist of the user's choosing. must already have concerts listed on SeatGeek
+   :param postal:
+   :type postal: the postal code of any city
+
+   Output
+   -----------
+   The function will generate two outputs:
+   1) the status code of each GET request, and
+   2) a dataframe of recommendations
+
+
+   .. rubric:: Example
+
+   >>> recommend_me(client_key, 'adele', '90001')
+
+   Status Code: 200
+
+          Names           | Type            | Links
+   0  Cali Vibes Festival | music festival  | https://seatgeek.com/cali-vibes-festival-tickets
+   1  Damian Marley       | band            | https://seatgeek.com/damian-marley-tickets
+
+
+.. py:function:: performer_id(client_key, artist)
+
+   This function returns the performer_id of a particular performer on SeatGeek's
+   API.
+
+
+   :param client_key:
+   :type client_key: client_id authentication key
+   :param artist:
+   :type artist: any artist name
+
+   Output
+   --------
+   The function will output the id number of the artist.
+
+
+   .. rubric:: Example
+
+   >>> performer_id(client_key, 'adele')
+
+   141
+
+
+.. py:function:: city_status(client_key, city)
+
+   This function returns the status code for city-specific concerts.
+
+   :param client_key:
+   :type client_key: client_id authentication key
+   :param city:
+   :type city: city name
+
+   Output
+   ---------
+   This function will output the status code of the GET request.
+
+
+   .. rubric:: Example
+
+   >>> city_status(client_key, 'Los Angeles')
+   200
+
+
